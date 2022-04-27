@@ -36,12 +36,18 @@ class NearEarthObject:
         :param approaches: (list) approaches to earth of the NEO
         """
         self.designation = str(designation)
-        self.name = name
+        if name.strip() == "":
+            self.name = None
+        else:
+            self.name = name
         try:
             self.diameter = float(diameter)
         except ValueError:
             self.diameter = float("nan")
-        self.hazardous = hazardous
+        if hazardous.lower() == "y":
+            self.hazardous = True
+        else:
+            self.hazardous = False
         # Create an empty initial collection of linked approaches.
         self.approaches = list(approaches)
 
