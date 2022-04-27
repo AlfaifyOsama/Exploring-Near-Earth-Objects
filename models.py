@@ -1,4 +1,5 @@
 """Represent models for near-Earth objects and their close approaches.
+
 The `NearEarthObject` class represents a near-Earth object. Each has a unique
 primary designation, an optional unique name, an optional diameter, and a flag
 for whether the object is potentially hazardous.
@@ -17,6 +18,7 @@ import math
 
 class NearEarthObject:
     """A near-Earth object (NEO).
+
     An NEO encapsulates semantic and physical parameters about the object, such
     as its primary designation (required, unique), IAU name (optional), diameter
     in kilometers (optional - sometimes unknown), and whether it's marked as
@@ -28,6 +30,7 @@ class NearEarthObject:
 
     def __init__(self, designation, name=None, diameter=float('nan'), hazardous="", approaches=[], **info):
         """Create a new `NearEarthObject`.
+
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
         :param designation: (str) Unique identifier of the Near Earth Object.
         :param name: (str) Name of the NEO.
@@ -80,6 +83,7 @@ class NearEarthObject:
 
 class CloseApproach:
     """A close approach to Earth by an NEO.
+
     A `CloseApproach` encapsulates information about the NEO's close approach to
     Earth, such as the date and time (in UTC) of closest approach, the nominal
     approach distance in astronomical units, and the relative approach velocity
@@ -92,6 +96,7 @@ class CloseApproach:
 
     def __init__(self, designation, time, distance, velocity, **info):
         """Create a new `CloseApproach`.
+
         :param designation: (str) unique id of NEO
         :param time: (UTC date and time) closest approach to earth in format %Y-%b-%d %H:%M
         :param distance: (float) closest distance to earth
@@ -115,6 +120,7 @@ class CloseApproach:
     @property
     def time_str(self):
         """Return a formatted representation of this `CloseApproach`'s approach time.
+
         The value in `self.time` should be a Python `datetime` object. While a
         `datetime` object has a string representation, the default representation
         includes seconds - significant figures that don't exist in our input

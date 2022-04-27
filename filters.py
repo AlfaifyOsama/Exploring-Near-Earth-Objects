@@ -1,4 +1,5 @@
 """Provide filters for querying close approaches and limit the generated results.
+
 The `create_filters` function produces a collection of objects that is used by
 the `query` method to generate a stream of `CloseApproach` objects that match
 all of the desired criteria. The arguments to `create_filters` are provided by
@@ -21,6 +22,7 @@ class UnsupportedCriterionError(NotImplementedError):
 
 class AttributeFilter:
     """A general superclass for filters on comparable attributes.
+
     An `AttributeFilter` represents the search criteria pattern comparing some
     attribute of a close approach (or its attached NEO) to a reference value. It
     essentially functions as a callable predicate for whether a `CloseApproach`
@@ -34,6 +36,7 @@ class AttributeFilter:
 
     def __init__(self, op, value):
         """Construct a new `AttributeFilter` from an binary predicate and a reference value.
+
         The reference value will be supplied as the second (right-hand side)
         argument to the operator function. For example, an `AttributeFilter`
         with `op=operator.le` and `value=10` will, when called on an approach,
@@ -51,6 +54,7 @@ class AttributeFilter:
     @classmethod
     def get(cls, approach):
         """Get an attribute of interest from a close approach.
+
         Concrete subclasses must override this method to get an attribute of
         interest from the supplied `CloseApproach`.
         :param approach: A `CloseApproach` on which to evaluate this filter.
@@ -67,6 +71,7 @@ class AttributeFilter:
 class DiameterFilter(AttributeFilter):
     """
     A sub class of the Attribute Filter.
+
     Modifies the get class method to get the diameter attribute of the NEO object inside the approach object.
     Will be applied to filter an approach depending on the diameter of the NEO.
     """
@@ -74,6 +79,7 @@ class DiameterFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
         """Overwrite superclass method to get the diameter of the neo object inside the approach object.
+
         :param approach: (CloseApproach Object) Close Approach to pull the diameter from.
         :return: (float) The diameter of the CloseApproach object.
         """
@@ -83,6 +89,7 @@ class DiameterFilter(AttributeFilter):
 class DistanceFilter(AttributeFilter):
     """
     A sub class of the Attribute Filter.
+
     Modifies the get class method to get the distance attribute of the approach object.
     Will be applied to filter an approach depending on the distance of the approach.
     """
@@ -90,6 +97,7 @@ class DistanceFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
         """Overwrite superclass method to get the distance of the approach object.
+
         :param approach: (CloseApproach Object) Close Approach to pull the distance from.
         :return: (float) The distance of the CloseApproach object.
         """
@@ -99,6 +107,7 @@ class DistanceFilter(AttributeFilter):
 class VelocityFilter(AttributeFilter):
     """
     A sub class of the Attribute Filter.
+
     Modifies the get class method to get the velocity attribute of the approach object.
     Will be applied to filter an approach depending on the velocity of the approach.
     """
@@ -106,6 +115,7 @@ class VelocityFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
         """Overwrite superclass method to get the velocity of the approach object.
+
         :param approach: (CloseApproach Object) Close Approach to pull the velocity from.
         :return: (float) The velocity of the CloseApproach object.
         """
@@ -115,6 +125,7 @@ class VelocityFilter(AttributeFilter):
 class HazardousFilter(AttributeFilter):
     """
     A sub class of the Attribute Filter.
+
     Modifies the get class method to get the hazardous attribute of the NEO object inside the approach object.
     Will be applied to filter an approach depending if the NEO is classified as hazardous.
     """
@@ -122,6 +133,7 @@ class HazardousFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
         """Overwrite superclass method to get wether the NEO object inside the approach object is hazardous.
+
         :param approach: (CloseApproach Object) Close Approach to pull the velocity from.
         :return: (Bool) If the NEO is hazardous.
         """
@@ -131,6 +143,7 @@ class HazardousFilter(AttributeFilter):
 class DateFilter(AttributeFilter):
     """
     A sub class of the Attribute Filter.
+
     Modifies the get class method to get the time attribute of the approach object.
     Will be applied to filter an approach depending on the time of the approach.
     """
@@ -138,6 +151,7 @@ class DateFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
         """Overwrite superclass method to get the date of the approach object.
+
         :param approach: (CloseApproach Object) Close Approach to pull the date from.
         :return: (date) The date of the CloseApproach object.
         """
@@ -150,6 +164,7 @@ def create_filters(date=None, start_date=None, end_date=None,
                    diameter_min=None, diameter_max=None,
                    hazardous=None):
     """Create a collection of filters from user-specified criteria.
+
     Each of these arguments is provided by the main module with a value from the
     user's options at the command line. Each one corresponds to a different type
     of filter. For example, the `--date` option corresponds to the `date`
@@ -204,6 +219,7 @@ def create_filters(date=None, start_date=None, end_date=None,
 
 def limit(iterator, n=None):
     """Produce a limited stream of values from an iterator.
+
     If `n` is 0 or None, don't limit the iterator at all.
     :param iterator: An iterator of values.
     :param n: The maximum number of values to produce.
